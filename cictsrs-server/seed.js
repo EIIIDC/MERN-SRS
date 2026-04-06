@@ -29,13 +29,13 @@ const register = async() => {
         
 
             const newRepairLog = new RepairLog({
-            name: "client1",
-            email: "client1@gmail.com",
+            name: "client2",
+            email: "client2@gmail.com",
             office: "CICT",
-            device: "Dell XPS 13",
-            issue: "Screen flickering",
-            inclusions: "no",
-            status: "pending"
+            device: "Printer L3250",
+            issue: "Ink Pad",
+            inclusions: "USB Cable, power adapter",
+            status: "in progress"
             });
 
             const newInventory = new Inventory({ 
@@ -49,8 +49,8 @@ const register = async() => {
 
 
             // await newUser.save();
-             await newCctv.save();
-          //  await newRepairLog.save();
+            // await newCctv.save();
+              await newRepairLog.save();
            // await newInventory.save();
             console.log("Superadmin user and CCTV created successfully");
     } catch(error) {

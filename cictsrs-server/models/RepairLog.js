@@ -10,7 +10,7 @@ const repairLogSchema =  new mongoose.Schema({
     dateReceived: {type: Date, default: Date.now},
     dateReleased: {type: Date},
  //releasedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    inclusions: {type: String, enum: ["", "no"], default: "no"},
+    inclusions: {type: String, default: "none"},
     status: {type: String, enum:["pending", "in progress", "completed"], default: "pending"},
  // assignedTo: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 })
