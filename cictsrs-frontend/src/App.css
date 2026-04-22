@@ -5,11 +5,15 @@
  --color-primaryblue: #4D6A92;
  --color-accentblue: #5A8FA0 ;
  --color-complementaryblue:  #A2C6E9;
+ --color-bgblue: #131122;
 }
 
 @layer base{
   :root{
-    @apply bg-[url('../src/assets/srsBG.svg')] bg-cover bg-fixed bg-center;
+   /* @apply bg-[url('../src/assets/srsBG.svg')] bg-cover bg-fixed bg-center; */
+   @apply bg-bgblue;
+
+
   }
   
 }
