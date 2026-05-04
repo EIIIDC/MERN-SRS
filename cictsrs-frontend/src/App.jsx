@@ -1,9 +1,9 @@
 import './App.css'
 import {BrowserRouter as Router, Routes, Route} from 'react-router';
 import Login from './pages/Login.jsx';
-import Contactus from './pages/ContactUs.jsx';
+import Manage from './pages/Manage.jsx';
+import Register from './pages/Register.jsx';
 import Home from './pages/Home.jsx';
-import About from './pages/About.jsx';
 
 
 function App() {
@@ -15,8 +15,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login/>} />
           <Route path="/dashboard" element={<Home/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/contact-us" element={<Contactus/>} />
+          <Route path="/manage" element={<Manage/>} />
+          <Route path="/register" element={<Register/>} />
         </Routes>
       </Router>
   )
