@@ -33,9 +33,14 @@ const register = async() => {
             email: "client2@gmail.com",
             office: "CICT",
             device: "Printer L3250",
+            serialNumber: "SN987654321",
             issue: "Ink Pad",
+            dateReceived: new Date("2024-06-01"),
+            dateReleased: new Date("2024-06-05"),
+            releasedBy: "technician1",
             inclusions: "USB Cable, power adapter",
-            status: "in progress"
+            status: "in progress",
+            assignedTechnician: "technician1"
             });
 
             const newInventory = new Inventory({ 

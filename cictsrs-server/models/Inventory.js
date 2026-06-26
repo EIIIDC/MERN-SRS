@@ -8,7 +8,7 @@ const inventorySchema = new mongoose.Schema({
     quantity: {type: Number},
     serviceable: {type: Boolean, default: false, required: true},
     lastChecked: {type: Date, default: Date.now},
-    //photo: {type: String},
+    // Image must be stored via URL or path to image
 })
 
 const Inventory = mongoose.model("Inventory", inventorySchema);

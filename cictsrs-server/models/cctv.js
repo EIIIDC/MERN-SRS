@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const cctvSchema = new mongoose.Schema({
+CctvId: {type: String, required: true, unique: true},
 Location: {type: String, required: true},
 cctvType: {type: String, enum: [ "bullet", "ptz", "ANPR","others"], required: true},
 InstallationDate: {type: Date, default: Date.now},
