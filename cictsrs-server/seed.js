@@ -8,15 +8,15 @@ import connectDB from './db/connection.js';
 const register = async() => {
     try {
             connectDB();
-        /*    const hashPassword = await bcrypt.hash("superadmin",10);
+            const hashPassword = await bcrypt.hash("admin123",10);
             const newUser = new User({
-                name: "superadmin",
-                email: "superadmin@gmail.com",
+                name: "testadmin",
+                email: "ernestoiiigdelacruz@gmail.com",
                 password: hashPassword,
                 office: "CICT",
                 role:"superadmin"
             });
-        */
+    
 
             
             const newCctv = new Cctv({
@@ -53,9 +53,9 @@ const register = async() => {
             });
 
 
-            // await newUser.save();
+             await newUser.save();
             // await newCctv.save();
-              await newRepairLog.save();
+            //  await newRepairLog.save();
            // await newInventory.save();
             console.log("Superadmin user and CCTV created successfully");
     } catch(error) {

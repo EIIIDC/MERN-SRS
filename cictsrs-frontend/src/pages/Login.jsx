@@ -10,12 +10,13 @@ import axios from "axios";
 
 const Login = () => {
 
-    const [email,setEmail] = React.useState("");
-    const [password,setPassword] = React.useState("");
-    const [error,setError] = React.useState(null);
-    const [loading,setLoading] = React.useState(false);
-    const navigate = useNavigate();
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+    const [error,setError] = useState(null);
+    const [loading,setLoading] = useState(false);
     const {login} = useAuth();
+    const navigate = useNavigate();
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,14 +26,15 @@ const Login = () => {
 
         try { 
             
-            const response = await axios.post('http://localhost:3000/cictsrs-server/auth/login', {email,password,});
+            const response = await axios.post(
+                'http://localhost:3000/api/auth/login',
+                 {email,
+                password,});
             
             if (response.data.status) {
                 await login(response.data.user, response.data.token);
                 if(response.data.user.role === 'superadmin') {
-                    navigate('/admin/dashboard');}
-                else if(response.data.user.role === 'admin') {
-                    navigate('/user/dashboard');
+                    navigate('/superadmin/dashboard');
                 } else {
                     navigate('/client/dashboard');
                 }
@@ -41,8 +43,9 @@ const Login = () => {
             }
 
         } catch (error) {
-            console.log(error);
-            setError(error.message);
+            if (error.response) {
+                setError(error.response.data.message);
+            }
         }finally {
             setLoading(false);
         }
@@ -55,12 +58,12 @@ const Login = () => {
 
                 <form onSubmit={handleSubmit} className='flex flex-col gap-6 bg-complementaryblue/80 bg-blend-overlay p-4 rounded-lg shadow-md w-full max-w-sm'>
                     <div className='form-group item-center justify-center'>
-                        <label for='email' className='block text-lg font-medium mb-1'>Email </label>
+                        <label htmlFor='email' className='block text-lg font-medium mb-1'>Email </label>
                         <input type="text" id='email' name='email' onChange={(e) => setEmail(e.target.value)} placeholder='email' className='w-full bg-white/70 border border-white-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500' required/>
                     </div>
 
                     <div className='form-group'>
-                        <label for='password' className='block text-lg font-medium mb-1'>
+                        <label htmlFor='password' className='block text-lg font-medium mb-1'>
                             Password
                         </label>
                         <input type='password' id='password' name='password' onChange={(e)=> setPassword(e.target.value)} placeholder='password' className='w-full bg-white/70 border border-white-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500' required/>
