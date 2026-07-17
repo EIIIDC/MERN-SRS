@@ -10,7 +10,7 @@ const repairLogSchema =  new mongoose.Schema({
     dateReceived: {type: Date, default: Date.now},
     dateReleased: {type: Date},
     releasedBy: {type: String,required: true},
-    //releasedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, -- String type for test, SchemaObject ID is the default for prod
+    //releasedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, -- String type for test, SchemaObject ID is the default for live
     inclusions: {type: String, default: "none"},
     status: {type: String, enum:["pending", "in progress", "completed"], default: "pending"},
     assignedTechnician: {type: String, required: true},

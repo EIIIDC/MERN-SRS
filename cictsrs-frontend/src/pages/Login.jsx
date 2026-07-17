@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast"; 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -15,12 +15,11 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
 
     try {
       const response = await axios.post(
         "http://localhost:3000/api/auth/login",
-        { email, password },
+        { email, password }
       );
 
       if (
@@ -29,6 +28,9 @@ const Login = () => {
         response.data.succes === true
       ) {
         await login(response.data.user, response.data.token);
+        
+        
+        toast.success("Login successful!");
 
         if (response.data.user.role === "superadmin") {
           navigate("/superadmin/dashboard");
@@ -36,15 +38,19 @@ const Login = () => {
           navigate("/client/dashboard");
         }
       } else {
-        alert(
+        
+        toast.error(
           response.data.error ||
-            response.data.message ||
-            "Login failed, but no error message was provided.",
+          response.data.message ||
+          "Login failed. Please check your credentials."
         );
       }
     } catch (error) {
+      
       if (error.response) {
-        setError(error.response.data.message);
+        toast.error(error.response.data.message || "An error occurred during login.");
+      } else {
+        toast.error("Network error. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -52,7 +58,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col  items-center justify-center h-screen bg-[url(../src/assets/ictLOGO.svg)] bg-cover bg-center bg-no-repeat bg-bgblue/30  bg-blend-overlay  md:bg-contain">
+    <div className="flex flex-col items-center justify-center h-screen bg-[url(../src/assets/ictLOGO.svg)] bg-cover bg-center bg-no-repeat bg-bgblue/30 bg-blend-overlay md:bg-contain">
+      
+      <Toaster position="top-center" reverseOrder={false} />
+
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-6 bg-complementaryblue/80 bg-blend-overlay p-4 rounded-lg shadow-md w-full max-w-sm"
@@ -89,10 +98,11 @@ const Login = () => {
 
         <button
           type="submit"
-          className="p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          disabled={loading}
+          className="p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300 disabled:cursor-not-allowed"
         >
           {" "}
-          {loading ? "Logging in.." : "Login"}
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
       <br />
@@ -101,7 +111,8 @@ const Login = () => {
           Don't have an account?
         </h1>
         <button
-          type="submit"
+          type="button"
+          onClick={() => navigate('/register')}
           className="p-1 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 mt-0"
         >
           Register

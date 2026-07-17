@@ -35,7 +35,7 @@ const Register = () => {
                     </div>
 
                     <div className='form-group item-center justify-center'>
-                        <label  className='block text-lg font-medium '>Name Ext. </label>
+                        <label  className='block text-lg font-medium '>Office </label>
                         <input type="text" id='extname' name='extname' className='w-full bg-white/70 border border-white-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500' required/>
                     </div>
 

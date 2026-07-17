@@ -8,13 +8,13 @@ import connectDB from './db/connection.js';
 const register = async() => {
     try {
             connectDB();
-            const hashPassword = await bcrypt.hash("admin123",10);
+            const hashPassword = await bcrypt.hash("client123",10);
             const newUser = new User({
-                name: "testadmin",
-                email: "ernestoiiigdelacruz@gmail.com",
+                name: "testclient",
+                email: "testclient@gmail.com",
                 password: hashPassword,
                 office: "CICT",
-                role:"superadmin"
+                role:"client"
             });
     
 
