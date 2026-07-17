@@ -5,6 +5,8 @@ import Manage from './pages/Manage.jsx';
 import Register from './pages/Register.jsx';
 import Home from './pages/Home.jsx';
 import ProtectedRoutes from './utils/protectedRoutes.jsx';
+import requests from './pages/Reqs.jsx';
+//import inventory from './pages/inv.jsx';
 
 
 function App() {
@@ -21,9 +23,10 @@ function App() {
         > 
             <Route 
               index
-              element={<h1>Dashboard Summary</h1>}
-            
-            
+              element={<requests/>} // reqList collection MONGODB
+
+              element={<inventory/>} //inventories collection MONGODB
+
             /> 
         
 

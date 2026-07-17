@@ -4,6 +4,7 @@ import Cctv from './models/cctv.js';
 import RepairLog from './models/RepairLog.js';
 import Inventory from './models/Inventory.js';
 import connectDB from './db/connection.js';
+import reqList from './models/reqList.js';
 
 const register = async() => {
     try {
@@ -16,7 +17,22 @@ const register = async() => {
                 office: "CICT",
                 role:"client"
             });
-    
+
+            const newReqList = new reqList({
+                assignedTechnician: "technician1",
+                name: "client2",
+                email: "sample@mail.com",
+                office: "CICT",
+                device: "Printer L3250",
+                serialNumber: "SN987654321",
+                issue: "Ink Pad",
+                dateReceived: new Date("2024-06-01"),
+                dateReleased: new Date("2024-06-05"),
+                releasedBy: "technician1",
+                inclusions: "USB Cable, power adapter",
+                status: "in progress"
+                
+                });    
 
             
             const newCctv = new Cctv({
@@ -53,11 +69,11 @@ const register = async() => {
             });
 
 
-             await newUser.save();
+             await newReqList.save();
             // await newCctv.save();
             //  await newRepairLog.save();
            // await newInventory.save();
-            console.log("Superadmin user and CCTV created successfully");
+            console.log("Request List seeded successfully!");
     } catch(error) {
         console.log(error);
     }
