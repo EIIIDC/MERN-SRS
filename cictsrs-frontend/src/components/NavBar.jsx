@@ -30,12 +30,12 @@ const Navbarr = () => {
             <span>CICT-SRS</span>
           </div>
 
-          <div>
-            <ul>
+          <div className="dark:bg-gray-800  h-screen">
+            <ul >
               {menuItems.map((item) => (
-                <li key={item.name} className={"flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"}>
-                  <span className="text-xl">{item.icon}</span>
-                  <a href={item.path} className="flex-1 ml-3 whitespace-nowrap">{item.name}</a>
+                <li key={item.name} className={"flex items-center p-2 text-base font-normal  md:visible  text-gray-900 rounded-lg dark:text-white  "}>
+                 <a href={item.path} className="text-xl">{item.icon}</a>
+                  <a href={item.path} className="flex-1 ml-3 invisible md:visible whitespace-nowrap opacity-0 transition-all duration-500 md:visible md:opacity-100">{item.name}</a>
                 </li>
               ))}
             </ul>
