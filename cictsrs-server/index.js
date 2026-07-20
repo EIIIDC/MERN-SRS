@@ -13,8 +13,9 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 
 
-app.listen(process.env.PORT,'0.0.0.0', () => {
+app.listen(process.env.PORT, () => {
     connectDB();
-    console.log('Server is running on http://localhost:3000');
+    console.log('Server is running on server');
 }
 )
+
