@@ -64,7 +64,7 @@ const Login = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 bg-complementaryblue/80 bg-blend-overlay p-4 rounded-lg shadow-md w-full max-w-sm"
+        className="flex flex-col gap-6 bg-complementaryblue/50 bg-blend-overlay p-4 rounded-lg shadow-md w-full max-w-sm"
       >
         <div className="form-group item-center justify-center">
           <label htmlFor="email" className="block text-lg font-medium mb-1">

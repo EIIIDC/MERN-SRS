@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const useCctvStore = create((set) => ({
+export const useCctv = create((set) => ({
     cctvs: [],
     
     setCctvs: (cctvs) => set({ cctvs }),

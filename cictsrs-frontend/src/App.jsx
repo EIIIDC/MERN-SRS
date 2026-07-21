@@ -32,9 +32,11 @@ function App() {
 
         </Route>
           <Route path="/client/dashboard" element={<h1>Client Dashboard</h1>}/>
-          <Route path="/manage" element={<Manage/>} />
+          <Route path="/superadmin/manage" element={<ProtectedRoutes requireRole={["superadmin"]}><Manage/></ProtectedRoutes>}></Route>  
+          
           <Route path="/register" element={<Register/>} />
-          <Route path="/unauthorized" element={<div className="flex flex-col items-center justify-center h-screen bg-[url(../src/assets/unauthorized401.svg)] bg-cover bg-center bg-no-repeat bg-bgblue/30 bg-blend-overlay md:bg-contain"></div>} />
+          <Route path="/unauthorized" element={<div className="flex flex-col items-center justify-center h-screen bg-[url(../src/assets/unauthorized401.svg)] bg-cover bg-center bg-no-repeat bg-bgblue-500 bg-blend-overlay md:bg-contain"></div>} />
+          
         </Routes>
       </Router>
   )

@@ -36,11 +36,13 @@ const register = async() => {
 
             
             const newCctv = new Cctv({
-                Location: "Main Entrance",
-                cctvType: "bullet",
-                installationDate: new Date("2023-01-15"),
-                lastMaintenanceDate: new Date("2024-01-10"),
-                status: "active"
+                CctvId: "69",
+                Location: "Kalinga Food Court",
+                cctvType: "ANPR",
+                installationDate: new Date("2099-01-15"),
+                lastMaintenanceDate: new Date("2420-01-10"),
+                Status: "out of order",
+               
             });
         
 
@@ -69,8 +71,8 @@ const register = async() => {
             });
 
 
-             await newReqList.save();
-            // await newCctv.save();
+            // await newReqList.save();
+             await newCctv.save();
             //  await newRepairLog.save();
            // await newInventory.save();
             console.log("Request List seeded successfully!");
