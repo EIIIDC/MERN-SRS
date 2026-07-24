@@ -11,7 +11,7 @@ export const useCctv = create((set) => ({
             return { success: false, message: "Please fill in all required fields (CctvId, Location, cctvType)." };
         }
         
-        const res = await fetch("/api/cctvs", {
+        const res = await fetch("/api/cctvs", { // api connection successful
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

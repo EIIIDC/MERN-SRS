@@ -62,20 +62,20 @@ const register = async() => {
             });
 
             const newInventory = new Inventory({ 
-            itemType: "laptop", 
-            itemModel: "Dell XPS 13",
+            itemType: "printer", 
+            itemModel: "secret",
             serialNumber: "SN123456780",
-            description: "A high-end laptop",
+            description: "3d Printer",
             quantity: 10,
-            serviceable: true
+            serviceable: false
             });
 
 
             // await newReqList.save();
-             await newCctv.save();
+            //await newCctv.save();
             //  await newRepairLog.save();
-           // await newInventory.save();
-            console.log("Request List seeded successfully!");
+            await newInventory.save();
+            console.log("Inventory seeded successfully!");
     } catch(error) {
         console.log(error);
     }

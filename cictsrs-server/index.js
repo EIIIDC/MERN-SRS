@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import connectDB from './db/connection.js';
 import authRoutes from './routes/auth.js';
 import cctvRoutes from './routes/cctv.js';
+import invRoutes from './routes/inventory.js';
+import userRoutes from './routes/user.js'
 
 
 
@@ -14,9 +16,11 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/cctvs', cctvRoutes);
+app.use('/api/invItems', invRoutes);
+app.use('/api/users',userRoutes);
 
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, '0.0.0.0', () => {
     connectDB();
     console.log('Server is running on server');
 }

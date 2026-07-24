@@ -7,6 +7,8 @@ import Home from './pages/Home.jsx';
 import ProtectedRoutes from './utils/protectedRoutes.jsx';
 import requests from './pages/Reqs.jsx';
 //import inventory from './pages/inv.jsx';
+import CctvCard from './components/CctvCard.jsx';
+import InventoryCard from './components/InventoryCard.jsx';
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
               element={<requests/>} // reqList collection MONGODB
 
               element={<inventory/>} //inventories collection MONGODB
+
+              element={<CctvCard/>} //cctvs collection MONGODB
 
             /> 
         
