@@ -47,6 +47,7 @@ const register = async() => {
         
 
             const newRepairLog = new RepairLog({
+            reqID:"seed",
             name: "client2",
             email: "client2@gmail.com",
             office: "CICT",
@@ -73,8 +74,8 @@ const register = async() => {
 
             // await newReqList.save();
             //await newCctv.save();
-            //  await newRepairLog.save();
-            await newInventory.save();
+              await newRepairLog.save();
+            //await newInventory.save();
             console.log("Inventory seeded successfully!");
     } catch(error) {
         console.log(error);

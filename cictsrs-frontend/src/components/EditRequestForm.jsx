@@ -1,34 +1,10 @@
-import React from 'react';
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import"../App.css";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
-import { useRepairLog } from "../db/repairs/repair";
-import toast, { Toaster } from "react-hot-toast";
-import {useEffect} from "react";
 
-const RequestForm = () => {
-
-  const generateNewReqID = () => {
-    const today = new Date();
-    const month = today.getMonth() + 1; 
-    const day = today.getDate();
-    const year = today.getFullYear().toString().slice(-2); // Gets '26' from '2026'
-
-    // Formats as 7-25-26
-    const datePrefix = `${year}-${month}${day}`; 
-    
- 
-    const todayCount = parseInt(localStorage.getItem(`reqCount_${datePrefix}`) || '0', 10);
-    const newCount = todayCount + 1;
-
-    return {
-      fullID: `${datePrefix}-${newCount}`,
-      datePrefix: datePrefix,
-      newCount: newCount
-    };
-  };
-
+const EditRequestForm = () => {
+  const { id } = useParams(); 
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     reqID: '',
@@ -38,84 +14,79 @@ const RequestForm = () => {
     device: '',
     serialNumber: '',
     issue: '',
-    inclusions: 'none',
+    inclusions: '',
     assignedTechnician: '',
-    releasedBy: 'TBD',
+    status: '',
+    releasedBy: '',
   });
 
-  const [currentReqMeta, setCurrentReqMeta] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
 
- 
+  // Fetch the existing data when the component loads
   useEffect(() => {
-    const newReqData = generateNewReqID();
-    setCurrentReqMeta(newReqData);
-    setFormData((prev) => ({ ...prev, reqID: newReqData.fullID }));
-  }, []);
+    const fetchRepairLog = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/repairLogs/${id}`);
+        // Assuming your backend returns the object directly or inside a data property
+        const data = response.data.data || response.data; 
+        
+        // Populate the form with the existing data
+        setFormData({
+          reqID: data.reqID || '',
+          name: data.name || '',
+          email: data.email || '',
+          office: data.office || '',
+          device: data.device || '',
+          serialNumber: data.serialNumber || '',
+          issue: data.issue || '',
+          inclusions: data.inclusions || '',
+          assignedTechnician: data.assignedTechnician || '',
+          status: data.status || 'operational',
+          releasedBy: data.releasedBy || '',
+        });
+      } catch (error) {
+        console.error("Error fetching log:", error);
+        setMessage("Failed to load data. The record might not exist.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRepairLog();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage('');
 
     try {
-     
-      const response = await axios.post('http://localhost:3000/api/repairLogs', formData);
-
-   
-      setMessage(`Request ${formData.reqID} submitted successfully!`);
+      // Use PUT or PATCH to update the existing record
+      await axios.put(`http://localhost:3000/api/repairLogs/${id}`, formData);
+      setMessage("Request updated successfully!");
       
-  
-      localStorage.setItem(`reqCount_${currentReqMeta.datePrefix}`, currentReqMeta.newCount);
-
-  
-      const nextReqData = generateNewReqID();
-      setCurrentReqMeta(nextReqData);
-
-
-      setFormData({
-        reqID: nextReqData.fullID,
-        name: '',
-        email: '',
-        office: '',
-        device: '',
-        serialNumber: '',
-        issue: '',
-        inclusions: 'none',
-        assignedTechnician: '',
-        releasedBy: 'TBD',
-      });
-
+      // Optional: Redirect back to the list after a short delay
+      setTimeout(() => navigate('/superadmin/manage'), 1500); 
     } catch (error) {
-      console.error("Submission error:", error);
-      
-
-      if (error.response) {
-      
-        setMessage(`Error: ${error.response.data.message || 'Failed to submit'}`);
-      } else {
-   
-        setMessage('Network error. Please try again later.');
-      }
+      console.error("Update error:", error);
+      setMessage(`Error: ${error.response?.data?.message || 'Failed to update'}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (isLoading) return <div className="text-center mt-20">Loading data...</div>;
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10 text-gray-800">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create Service Request</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Edit Service Request</h2>
       
       {message && (
         <div className={`p-4 mb-4 rounded ${message.includes('Error') ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
@@ -124,8 +95,7 @@ const RequestForm = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        
-        {/* NEW: Read-only reqID display */}
+        {/* Read-only reqID display */}
         <div className="bg-gray-50 p-3 rounded border border-gray-200">
           <label className="block text-sm font-bold text-gray-600 mb-1">Request Tracking ID</label>
           <input
@@ -163,7 +133,7 @@ const RequestForm = () => {
           </div>
         </div>
 
-    
+        {/* Row 2: Office & Assigned Technician */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Office</label>
@@ -189,7 +159,22 @@ const RequestForm = () => {
           </div>
         </div>
 
-    
+        {/* Status Dropdown (New feature useful for edits) */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Status</label>
+          <select
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+            <option value="received">Received</option>
+          </select>
+        </div>
+
+        {/* Device & Serial Number */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Device Name/Model</label>
@@ -215,7 +200,7 @@ const RequestForm = () => {
           </div>
         </div>
 
-    
+        {/* Issue */}
         <div>
           <label className="block text-sm font-medium mb-1">Reported Issue</label>
           <textarea
@@ -228,29 +213,16 @@ const RequestForm = () => {
           ></textarea>
         </div>
 
-   
-        <div>
-          <label className="block text-sm font-medium mb-1">Inclusions (e.g., Charger, Bag)</label>
-          <input
-            type="text"
-            name="inclusions"
-            value={formData.inclusions}
-            onChange={handleChange}
-            className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-     
         <button
           type="submit"
           disabled={isSubmitting}
           className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition disabled:bg-blue-300 mt-4"
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Request'}
+          {isSubmitting ? 'Saving Changes...' : 'Save Changes'}
         </button>
       </form>
     </div>
   );
 };
 
-export default RequestForm;
+export default EditRequestForm;

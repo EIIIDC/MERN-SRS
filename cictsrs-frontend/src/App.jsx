@@ -9,6 +9,8 @@ import requests from './pages/Reqs.jsx';
 //import inventory from './pages/inv.jsx';
 import CctvCard from './components/CctvCard.jsx';
 import InventoryCard from './components/InventoryCard.jsx';
+import RequestForm from './components/RequestForm.jsx';
+import EditRequestForm from './components/EditRequestForm.jsx'; 
 
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
               element={<inventory/>} //inventories collection MONGODB
 
               element={<CctvCard/>} //cctvs collection MONGODB
+              
 
             /> 
         
@@ -37,6 +40,9 @@ function App() {
         </Route>
           <Route path="/client/dashboard" element={<h1>Client Dashboard</h1>}/>
           <Route path="/superadmin/manage" element={<ProtectedRoutes requireRole={["superadmin"]}><Manage/></ProtectedRoutes>}></Route>  
+          <Route path="/EditRequestForm/:id" element={<EditRequestForm />} />
+
+
           
           <Route path="/register" element={<Register/>} />
           <Route path="/unauthorized" element={<div className="flex flex-col items-center justify-center h-screen bg-[url(../src/assets/unauthorized401.svg)] bg-cover bg-center bg-no-repeat bg-bgblue-500 bg-blend-overlay md:bg-contain"></div>} />
