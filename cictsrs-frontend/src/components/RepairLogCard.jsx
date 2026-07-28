@@ -43,7 +43,7 @@ const RepairLogCard = () => {
     const getStatusStyles = (status) => {
         if (status === "completed") return "bg-green-100 text-green-800 border-green-300";
         if (status === "in progress") return "bg-yellow-100 text-yellow-800 border-yellow-300";
-        if (status === "received") return "bg-red-100 text-red-800 border-red-300";
+        if (status === "received") return "bg-blue-100 text-blue-800 border-blue-300";
         return "bg-gray-100 text-gray-800 border-gray-300";
     };
 ///
@@ -93,7 +93,7 @@ const RepairLogCard = () => {
             
             {repairLogs.length === 0 ? (
                 <div className="text-center p-10 border-2 border-dashed border-gray-300 rounded-xl text-gray-500">
-                    No cameras found in the database.
+                    No Service Requests found in the database.
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

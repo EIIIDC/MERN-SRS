@@ -62,7 +62,7 @@ const InventoryCard = () => {
           <div className="flexbox lg:grid-cols-3 overscroll-contain items-center justify-center min-h-full gap-4 border-gray-500 text-gray-300 ">
             <div className="p-6 -max-w-8xl mx-auto min-h-screen bg-bgblue/30">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold text-white px-5">Item Inventory</h1>
+                <h1 className="text-2xl font-bold text-white px-5">CICT INVENTORY</h1>
                 
                 
                 <button 

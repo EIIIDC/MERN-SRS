@@ -47,6 +47,17 @@ const Manage = () => {
           >
             REQUESTS
           </Button>
+
+          <Button 
+          className="z-0 transition-discrete hover:bg-white/50"
+            onClick={() => setActiveTab('cctv')}
+            variant={activeTab === 'cctv' ? 'contained' : 'text'}
+          >
+            NETWORK CAMERA
+          </Button>
+
+
+
           <Button 
           className="z-0 transition-discrete hover:bg-bgblue/10"
             onClick={() => setActiveTab('inventory')}
@@ -55,13 +66,7 @@ const Manage = () => {
             INVENTORY
           </Button>
       
-          <Button 
-          className="z-0 transition-discrete hover:bg-white/50"
-            onClick={() => setActiveTab('cctv')}
-            variant={activeTab === 'cctv' ? 'contained' : 'text'}
-          >
-            NETWORK CAMERA
-          </Button>
+          
         </ButtonGroup>
       </div>
 
