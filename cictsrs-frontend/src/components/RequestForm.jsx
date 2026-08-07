@@ -70,7 +70,7 @@ const RequestForm = () => {
 
     try {
      
-      const response = await axios.post('http://localhost:3000/api/repairLogs', formData);
+      const response = await axios.post('http://192.168.55.58:3000/api/repairLogs', formData);
 
    
       setMessage(`Request ${formData.reqID} submitted successfully!`);
@@ -166,7 +166,7 @@ const RequestForm = () => {
     
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Office</label>
+            <label className="block text-sm font-medium mb-1">Office</label>      {/* Drop-down select - List of Offices*/}
             <input
               type="text"
               name="office"
@@ -177,7 +177,7 @@ const RequestForm = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Assigned Technician</label>
+            <label className="block text-sm font-medium mb-1">Assigned Technician</label> {/*Drop-down select - J.O's*/}
             <input
               type="text"
               name="assignedTechnician"
