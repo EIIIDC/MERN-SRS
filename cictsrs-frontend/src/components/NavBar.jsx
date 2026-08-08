@@ -41,6 +41,7 @@ const Navbarr = () => {
                   <a href={item.path} className="flex-1 ml-3 invisible md:visible whitespace-nowrap opacity-0 transition-all duration-500 md:visible md:opacity-100">{item.name}</a>
                 </li>
               ))}
+
             </ul>
 
           </div>

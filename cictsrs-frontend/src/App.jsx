@@ -38,7 +38,7 @@ function App() {
         
 
         </Route>
-          <Route path="/client/dashboard" element={<h1>Client Dashboard</h1>}/>
+          <Route path="/client/dashboard" element={ <h1>    UNAVAILABLE    </h1>}/>
           <Route path="/superadmin/manage" element={<ProtectedRoutes requireRole={["superadmin"]}><Manage/></ProtectedRoutes>}></Route>  
           <Route path="/EditRequestForm/:id" element={<EditRequestForm />} />
 
