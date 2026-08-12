@@ -13,7 +13,7 @@ const RequestForm = () => {
     const today = new Date();
     const month = today.getMonth() + 1; 
     const day = today.getDate();
-    const year = today.getFullYear().toString().slice(-2); // Gets '26' from '2026'
+    const year = today.getFullYear().toString().slice(-2); 
 
     // Formats as 7-25-26
     const datePrefix = `${year}-${month}${day}`; 
@@ -70,7 +70,7 @@ const RequestForm = () => {
 
     try {
      
-      const response = await axios.post('http://192.168.55.58:3000/api/repairLogs', formData);
+      const response = await axios.post('http://localhost:3000/api/repairLogs', formData);
 
    
       setMessage(`Request ${formData.reqID} submitted successfully!`);
