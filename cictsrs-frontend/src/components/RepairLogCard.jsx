@@ -5,6 +5,9 @@ import axios from "axios";
 import "../App.css";
 import Navbarr from "../components/NavBar";
 
+
+const API_BASE_URL = `http://${window.location.hostname}:3000`;
+
 const RepairLogCard = () => {
     const [repairLogs, setRepairLogs] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +19,7 @@ const RepairLogCard = () => {
         const getRepairLogs = async () => {
             try {
                
-                const response = await axios.get("http://localhost:3000/api/repairLogs");
+                const response = await axios.get(`${API_BASE_URL}/api/repairLogs`);
                 
                 const actualData = response.data.data || response.data;
                 
@@ -77,10 +80,10 @@ const RepairLogCard = () => {
 ////
     return (
 
-    <div className="relative h-screen max-w-full overscroll-none">
+    <div className="relative   overscroll-none">
        
 
-      <div className="flex h-screen overscroll-none sm:grid-cols-[260px_1fr] md:grid-rows-[80px_1fr] grid-cols-[80px_1fr] grid-rows-[60px_1fr]  md:transition-normal duration-200">
+      <div className="flex overscroll-none sm:grid-cols-[260px_1fr] md:grid-rows-[80px_1fr] grid-cols-[80px_1fr] grid-rows-[60px_1fr]  md:transition-normal duration-200">
         <Navbarr/>
         <main className="grid overflow-y-auto bg-bgblue min-h-full w-full p-5 ">
           
@@ -115,7 +118,7 @@ const RepairLogCard = () => {
                             <h3 className="font-bold text-lg text-white/70">Issue: {repairLogs.issue}</h3>
                             <h3 className="font-bold text-lg text-white/70">Inclusions: {repairLogs.inclusions}</h3>
 
-                      {/*  <p className="text-green-500 mb-4 font-medium">{repairLogs.Location}</p>  */}     
+                    
 
                             <div className="space-y-1 text-sm text-white/70 border-t pt-3 border-gray-100 mt-2">
                                 <p><strong>Technician:</strong> {repairLogs.assignedTechnician}</p>

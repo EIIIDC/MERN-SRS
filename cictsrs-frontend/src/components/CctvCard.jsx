@@ -5,6 +5,9 @@ import axios from "axios";
 import "../App.css";
 import Navbarr from "../components/NavBar";
 
+
+const API_BASE_URL = `http://${window.location.hostname}:3000`;
+
 const CctvCard = () => {
     const [cctvs, setCctvs] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +19,7 @@ const CctvCard = () => {
         const getCctvs = async () => {
             try {
                
-                const response = await axios.get("http://localhost:3000/api/cctvs");
+                const response = await axios.get(`${API_BASE_URL}/api/cctvs`);
                 
                 const actualData = response.data.data || response.data;
                 
@@ -53,10 +56,10 @@ const CctvCard = () => {
 
     return (
 
-    <div className="relative h-screen max-w-full overscroll-none">
+    <div className="relative  overscroll-none">
        
 
-      <div className="flex h-screen overscroll-none sm:grid-cols-[260px_1fr] md:grid-rows-[80px_1fr] grid-cols-[80px_1fr] grid-rows-[60px_1fr]  md:transition-normal duration-200">
+      <div className="flex  overscroll-none sm:grid-cols-[260px_1fr] md:grid-rows-[80px_1fr] grid-cols-[80px_1fr] grid-rows-[60px_1fr]  md:transition-normal duration-200">
         <Navbarr/>
         <main className="grid overflow-y-auto bg-bgblue min-h-full w-full p-5 ">
           

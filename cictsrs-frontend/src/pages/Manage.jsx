@@ -38,7 +38,9 @@ const Manage = () => {
   return (
     <div className="min-h-screen flex flex-col">
     
-      <div className="grid  justify-center w-screen z-1 bg-gray-800 py-2">
+      <div className="sticky top-0 grid justify-center z-1 py-2 transition-all duration-300
+       bg-transparent backdrop-blur-lg
+       hover:border-white hover:shadow-xl">
         <ButtonGroup variant="text"  sx={{ color: 'white' }} >
           <Button 
           className="z-0 transition-discrete hover:bg-bgblue/10"

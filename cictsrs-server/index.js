@@ -7,6 +7,8 @@ import cctvRoutes from './routes/cctv.js';
 import invRoutes from './routes/inventory.js';
 import userRoutes from './routes/user.js'
 import reqRoutes from './routes/request.js'
+import techRoutes from './routes/tech.js'
+
 
 
 
@@ -20,12 +22,12 @@ app.use('/api/cctvs', cctvRoutes);
 app.use('/api/invItems', invRoutes);
 app.use('/api/users',userRoutes);
 app.use('/api/repairLogs',reqRoutes);
-
+app.use('/api/technician',techRoutes);
 
 
 app.listen(process.env.PORT, '0.0.0.0', () => {
     connectDB();
-    console.log('Server is running on server');
+    console.log(`Server is running on Port ${process.env.PORT}`);
 }
 )
 

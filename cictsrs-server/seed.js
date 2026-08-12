@@ -5,6 +5,7 @@ import RepairLog from './models/RepairLog.js';
 import Inventory from './models/Inventory.js';
 import connectDB from './db/connection.js';
 import reqList from './models/reqList.js';
+import Technicians from './models/Technicians.js';
 
 const register = async() => {
     try {
@@ -71,12 +72,39 @@ const register = async() => {
             serviceable: false
             });
 
+            const newtechnician = new Technicians({ 
+            Fname: "Vhan",
+            Lname: "Villoria",
+            isOccupied: false,
+            Emtype: "Permanent"
+              
+            });
+            const newtechnician1 = new Technicians({ 
+            Fname: "Raymund",
+            Lname: "Balbin Jr.",
+            isOccupied: false,
+            Emtype: "Permanent"
+              
+            });
+
+             const newtechnician2 = new Technicians({ 
+            Fname: "Ian",
+            Lname: "Talanay",
+            isOccupied: false,
+            Emtype: "Permanent"
+              
+            });
+          
+           
+
 
             // await newReqList.save();
             //await newCctv.save();
-              await newRepairLog.save();
+             // await newRepairLog.save();
             //await newInventory.save();
-            console.log("Inventory seeded successfully!");
+              await newtechnician.save();
+              await newtechnician1.save();
+            console.log("seeded successfully!");
     } catch(error) {
         console.log(error);
     }

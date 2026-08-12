@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast"; 
+import toast, { Toaster } from "react-hot-toast";
+
+
+const API_BASE_URL = `http://${window.location.hostname}:3000`;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +21,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        `${API_BASE_URL}/api/auth/login`,
         { email, password }
       );
 

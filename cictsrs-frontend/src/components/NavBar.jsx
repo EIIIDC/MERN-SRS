@@ -29,14 +29,14 @@ const Navbarr = () => {
     return (
 
       
-      <div className="sticky overscroll-none absolute h-screen w-10 md:w-46 bg-bgblue/30 text-gray-300 transition-all duration-500">
+      <div className="sticky overscroll-none absolute h-auto w-10 md:w-46 bg-bgblue/30 text-gray-300 transition-all duration-500 ">
          
 
-          <div className="relative dark:bg-gray-800  h-screen w-15 md:w-45  transition-all duration-500 ">
-            <img src={ictLOGO} className="dark:bg-gray-800 w-10 md:w-36 h-10 md:h-36 object-contain mx-auto mb-6"  />
+          <div className="relative w-15 md:w-45  transition-all duration-500  ">
+            <img src={ictLOGO} className=" w-10 md:w-36 h-10 md:h-36 object-contain mx-auto mb-6 mt-6"  />
             <ul>
               {menuItems.map((item) => (
-                <li key={item.name} className={"flex items-center p-5 text-base font-normal  md:visible  text-gray-900 rounded-lg dark:text-white  "}>
+                <li key={item.name} className={"flex items-center p-5 text-base font-normal  md:visible  text-gray-900 rounded-lg text-white transition-all duration-300 hover:bg-white/10 hover:backdrop-blur-lg hover:border-white/40 hover:shadow-xl"}>
                  <a href={item.path} className="text-xl">{item.icon}</a>
                   <a href={item.path} className="flex-1 ml-3 invisible md:visible whitespace-nowrap opacity-0 transition-all duration-500 md:visible md:opacity-100">{item.name}</a>
                 </li>

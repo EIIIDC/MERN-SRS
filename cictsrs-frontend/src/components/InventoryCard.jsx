@@ -52,10 +52,10 @@ const InventoryCard = () => {
 
     return (
 
-    <div className="relative h-screen max-w-full overscroll-none">
+    <div className="relative  overscroll-none">
        
 
-      <div className="flex h-screen overscroll-none sm:grid-cols-[260px_1fr] md:grid-rows-[80px_1fr] grid-cols-[80px_1fr] grid-rows-[60px_1fr]  md:transition-normal duration-200">
+      <div className="flex  overscroll-none sm:grid-cols-[260px_1fr] md:grid-rows-[80px_1fr] grid-cols-[80px_1fr] grid-rows-[60px_1fr]  md:transition-normal duration-200">
         <Navbarr/>
         <main className="grid overflow-y-auto bg-bgblue min-h-full w-full p-5 ">
           

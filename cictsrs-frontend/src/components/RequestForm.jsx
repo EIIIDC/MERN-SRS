@@ -7,6 +7,10 @@ import { useRepairLog } from "../db/repairs/repair";
 import toast, { Toaster } from "react-hot-toast";
 import {useEffect} from "react";
 
+
+
+const API_BASE_URL = `http://${window.location.hostname}:3000`;
+
 const RequestForm = () => {
 
   const generateNewReqID = () => {
@@ -70,7 +74,8 @@ const RequestForm = () => {
 
     try {
      
-      const response = await axios.post('http://localhost:3000/api/repairLogs', formData);
+      const response = await axios.post(`${API_BASE_URL}/api/repairLogs`, formData);
+      
 
    
       setMessage(`Request ${formData.reqID} submitted successfully!`);
@@ -125,7 +130,7 @@ const RequestForm = () => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         
-        {/* NEW: Read-only reqID display */}
+       
         <div className="bg-gray-50 p-3 rounded border border-gray-200">
           <label className="block text-sm font-bold text-gray-600 mb-1">Request Tracking ID</label>
           <input
@@ -137,7 +142,7 @@ const RequestForm = () => {
           />
         </div>
 
-        {/* Row 1: Name & Email */}
+       
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Name</label>
@@ -176,12 +181,13 @@ const RequestForm = () => {
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Assigned Technician</label> {/*Drop-down select - J.O's*/}
+          <div className="select-none">
+            <label className="block text-sm font-medium mb-1 select-none">Technician</label> {/*Drop-down select - J.O's*/}
             <input
               type="text"
               name="assignedTechnician"
-              value={formData.assignedTechnician}
+              disabled={true}     
+              value= "TO BE ASSIGNED"
               onChange={handleChange}
               required
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"

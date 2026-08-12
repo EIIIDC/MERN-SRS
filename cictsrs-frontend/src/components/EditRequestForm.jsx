@@ -1,6 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
+
+const API_BASE_URL = `http://${window.location.hostname}:3000`;
 
 const EditRequestForm = () => {
   const { id } = useParams(); 
@@ -20,20 +23,25 @@ const EditRequestForm = () => {
     releasedBy: '',
   });
 
+ 
+  const [originalData, setOriginalData] = useState(null);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
+  
+  const [availableTechnicians, setAvailableTechnicians] = useState([]);
+  
+  const [allTechnicians, setAllTechnicians] = useState([]);
 
-  // Fetch the existing data when the component loads
+
   useEffect(() => {
     const fetchRepairLog = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/repairLogs/${id}`);
-        // Assuming your backend returns the object directly or inside a data property
+        const response = await axios.get(`${API_BASE_URL}/api/repairLogs/${id}`);
         const data = response.data.data || response.data; 
         
-        // Populate the form with the existing data
-        setFormData({
+        const initialFormState = {
           reqID: data.reqID || '',
           name: data.name || '',
           email: data.email || '',
@@ -45,7 +53,16 @@ const EditRequestForm = () => {
           assignedTechnician: data.assignedTechnician || '',
           status: data.status || 'operational',
           releasedBy: data.releasedBy || '',
+        };
+
+        setFormData(initialFormState);
+        
+       
+        setOriginalData({
+            assignedTechnician: initialFormState.assignedTechnician,
+            status: initialFormState.status
         });
+
       } catch (error) {
         console.error("Error fetching log:", error);
         setMessage("Failed to load data. The record might not exist.");
@@ -57,10 +74,38 @@ const EditRequestForm = () => {
     fetchRepairLog();
   }, [id]);
 
+  // Fetch all technicians
+  useEffect(() => {
+    const fetchTechnicians = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/api/technician`);
+        const allTechs = response.data.data || response.data;
+        
+        setAllTechnicians(allTechs); 
+
+        
+        const available = allTechs.filter(tech => tech.isOccupied === false);
+        setAvailableTechnicians(available);
+      } catch (error) {
+        console.error("Error fetching technicians:", error);
+      }
+    };
+
+    fetchTechnicians();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const changeTechnicianStatus = async (techName, isOccupiedStatus) => {
+    if (!techName) return;
+    const tech = allTechnicians.find(t => t.Fname === techName);
+    if (tech) {
+      const techId = tech._id || tech._id;
+      await axios.put(`${API_BASE_URL}/api/technician/${techId}`, { isOccupied: true });
+    }};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,11 +113,45 @@ const EditRequestForm = () => {
     setMessage('');
 
     try {
-      // Use PUT or PATCH to update the existing record
-      await axios.put(`http://localhost:3000/api/repairLogs/${id}`, formData);
+     
+      await axios.put(`${API_BASE_URL}/api/repairLogs/${id}`, formData);
+
+      const prevTechName = originalData?.assignedTechnician;
+      const newTechName = formData.assignedTechnician;
+      const prevStatus = originalData?.status;
+      const newStatus = formData.status;
+
+     
+      const updateTechStatus = async (techName, isOccupiedStatus) => {
+          if (!techName) return;
+          const tech = allTechnicians.find(t => t.Fname === techName);
+          if (tech) {
+              const techId = tech._id || tech._id;
+             
+              await axios.put(`${API_BASE_URL}/api/technician/${techId}`, { isOccupied: isOccupiedStatus });
+          }
+      };
+
+     
+      if (newStatus === 'completed') {
+        
+          await updateTechStatus(newTechName, false);
+          if (prevTechName && prevTechName !== newTechName) {
+              await updateTechStatus(prevTechName, false); // Edge case: swapped tech AND completed at same time
+          }
+      } else {
+         
+          if (newTechName !== prevTechName) {
+            
+              await updateTechStatus(prevTechName, false);
+              await updateTechStatus(newTechName, true);
+          } else if (prevStatus === 'completed' && newStatus !== 'completed') {
+             
+              await updateTechStatus(newTechName, true);
+          }
+      }
+
       setMessage("Request updated successfully!");
-      
-      // Optional: Redirect back to the list after a short delay
       setTimeout(() => navigate('/superadmin/manage'), 1500); 
     } catch (error) {
       console.error("Update error:", error);
@@ -82,7 +161,7 @@ const EditRequestForm = () => {
     }
   };
 
-  if (isLoading) return <div className="text-center mt-20">Loading data...</div>;
+  if (isLoading) return <div className="text-center mt-20">Loading Data</div>;
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10 text-gray-800">
@@ -95,7 +174,7 @@ const EditRequestForm = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Read-only reqID display */}
+        {/* ReqID*/}
         <div className="bg-gray-50 p-3 rounded border border-gray-200">
           <label className="block text-sm font-bold text-gray-600 mb-1">Request Tracking ID</label>
           <input
@@ -107,7 +186,7 @@ const EditRequestForm = () => {
           />
         </div>
 
-        {/* Row 1: Name & Email */}
+        {/* name*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Name</label>
@@ -120,6 +199,8 @@ const EditRequestForm = () => {
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+          
+        {/*email*/}
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
             <input
@@ -133,7 +214,7 @@ const EditRequestForm = () => {
           </div>
         </div>
 
-        {/* Row 2: Office & Assigned Technician */}
+        {/* Office*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Office</label>
@@ -146,20 +227,45 @@ const EditRequestForm = () => {
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+
+          {/* Assigned Technician */}
           <div>
             <label className="block text-sm font-medium mb-1">Assigned Technician</label>
-            <input
-              type="text"
+            <select
               name="assignedTechnician"
               value={formData.assignedTechnician}
-              onChange={handleChange}
+              onChange={handleChange} 
+              
               required
-              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+              className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            >
+              <option value="" disabled>Select a Technician</option>
+              
+              
+              {formData.assignedTechnician && !availableTechnicians.some(tech => tech.Fname === formData.assignedTechnician) && (
+                <option value={formData.assignedTechnician}>
+                  {formData.assignedTechnician} (Current),
+
+                 
+                </option>
+                 
+              )}
+
+             {/* Map Tech*/}
+              {availableTechnicians.map((tech) => (
+                <option key={tech._id || tech.id} value={tech.Fname}>
+                  {tech.Fname}
+                  onChange={changeTechnicianStatus}
+                </option>
+                
+              ))}
+
+               
+            </select>
           </div>
         </div>
 
-        {/* Status Dropdown (New feature useful for edits) */}
+        {/* Status*/}
         <div>
           <label className="block text-sm font-medium mb-1">Status</label>
           <select
@@ -174,7 +280,7 @@ const EditRequestForm = () => {
           </select>
         </div>
 
-        {/* Device & Serial Number */}
+        {/* Device*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1">Device Name/Model</label>
@@ -187,6 +293,7 @@ const EditRequestForm = () => {
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
+          {/* SN*/}
           <div>
             <label className="block text-sm font-medium mb-1">Serial Number</label>
             <input
@@ -218,6 +325,7 @@ const EditRequestForm = () => {
           disabled={isSubmitting}
           className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition disabled:bg-blue-300 mt-4"
         >
+          
           {isSubmitting ? 'Saving Changes...' : 'Save Changes'}
         </button>
       </form>
