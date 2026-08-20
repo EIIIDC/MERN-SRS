@@ -1,0 +1,27 @@
+{
+  "name": "mern-srs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm install && cd cictsrs-server && npm install && cd ../cictsrs-frontend && npm install",
+    "start": "npx concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd cictsrs-server && npm start",
+    "client": "cd cictsrs-frontend && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EIIIDC/MERN-SRS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EIIIDC/MERN-SRS/issues"
+  },
+  "homepage": "https://github.com/EIIIDC/MERN-SRS#readme",
+  "devDependencies": {
+    "concurrent": "^0.3.2"
+  }
+}
