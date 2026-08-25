@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 
-const API_BASE_URL = `http://${window.location.hostname}:3000`;
+const API_BASE_URL = `https://cict-srs-server.onrender.com`;
 
 const EditRequestForm = () => {
   const { id } = useParams(); 

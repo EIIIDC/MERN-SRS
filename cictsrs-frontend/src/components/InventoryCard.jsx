@@ -16,7 +16,7 @@ const InventoryCard = () => {
         const getinvItems = async () => {
             try {
                
-                const response = await axios.get("http://localhost:3000/api/invItems");
+                const response = await axios.get("https://cict-srs-server.onrender.com/api/invItems");
                 
                 const actualData = response.data.data || response.data;
                 

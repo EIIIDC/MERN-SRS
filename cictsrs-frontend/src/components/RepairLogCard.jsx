@@ -6,7 +6,7 @@ import "../App.css";
 import Navbarr from "../components/NavBar";
 
 
-const API_BASE_URL = `http://${window.location.hostname}:3000`;
+const API_BASE_URL = `https://cict-srs-server.onrender.com`;
 
 const RepairLogCard = () => {
     const [repairLogs, setRepairLogs] = useState([]);
