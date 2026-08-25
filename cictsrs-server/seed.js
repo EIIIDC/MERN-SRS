@@ -10,13 +10,13 @@ import Technicians from './models/Technicians.js';
 const register = async() => {
     try {
             connectDB();
-            const hashPassword = await bcrypt.hash("client123",10);
+            const hashPassword = await bcrypt.hash("admin123",10);
             const newUser = new User({
                 name: "testclient",
-                email: "testclient@gmail.com",
+                email: "admin@gmail.com",
                 password: hashPassword,
                 office: "CICT",
-                role:"client"
+                role:"superadmin"
             });
 
             const newReqList = new reqList({
@@ -97,13 +97,13 @@ const register = async() => {
           
            
 
-
-            // await newReqList.save();
-            //await newCctv.save();
-             // await newRepairLog.save();
-            //await newInventory.save();
-              await newtechnician.save();
-              await newtechnician1.save();
+            await newUser.save();
+        //     await newReqList.save();
+       //     await newCctv.save();
+       //       await newRepairLog.save();
+        //    await newInventory.save();
+        //      await newtechnician.save();
+         //     await newtechnician1.save();
             console.log("seeded successfully!");
     } catch(error) {
         console.log(error);

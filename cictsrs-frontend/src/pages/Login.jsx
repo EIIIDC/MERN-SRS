@@ -6,7 +6,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 
-const API_BASE_URL = `http://${window.location.hostname}:3000`;
+const API_BASE_URL = `https://cict-srs-server.onrender.com/`;
 
 const Login = () => {
   const [email, setEmail] = useState("");
