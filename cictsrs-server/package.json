@@ -7,10 +7,11 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-   "start": "node index.js",
-  "dev": "node --env-file=.env index.js"
+    "start": "node index.js",
+    "dev": "node --env-file=.env index.js"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",

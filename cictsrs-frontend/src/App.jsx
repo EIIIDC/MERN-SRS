@@ -22,21 +22,11 @@ function App() {
 
       <Router>
         <Routes>
-          <Route path='/' element={<root/>} />
-          <Route path="/login" element={<Login/>} />
+          <Route path='/' element={<Login/>} />
+        {/*  <Route path="/login" element={<Login/>} />*/}
           <Route path="/superadmin/dashboard" element={<ProtectedRoutes requireRole={["superadmin"]}><Home/></ProtectedRoutes>
           }
         > 
-            <Route 
-              index
-              element={<requests/>} // reqList collection MONGODB
-
-              element={<inventory/>} //inventories collection MONGODB
-
-              element={<CctvCard/>} //cctvs collection MONGODB
-              
-            /> 
-        
 
         </Route>
           <Route path="/client/dashboard" element={ <h1>    UNAVAILABLE    </h1>}/>
