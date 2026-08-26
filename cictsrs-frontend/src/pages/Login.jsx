@@ -36,7 +36,8 @@ const Login = () => {
         toast.success("Login successful!");
 
         if (response.data.user.role === "superadmin") {
-          navigate("/superadmin/dashboard");
+          navigate("/superadmin/manage");
+
         } else {
           navigate("/client/dashboard");
         }
