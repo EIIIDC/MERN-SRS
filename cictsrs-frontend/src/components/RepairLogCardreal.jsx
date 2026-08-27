@@ -1,6 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useRepairLog } from "../db/repairs/repair.js";
 import axios from "axios";
 import "../App.css";
 import Navbarr from "../components/NavBar";
@@ -22,6 +22,9 @@ const RepairLogCard = () => {
 
         if (Array.isArray(actualData)) {
           setRepairLogs(actualData);
+
+
+          
         } else {
           console.error(
             "Backend did not return an array. It returned:",
@@ -50,7 +53,7 @@ const RepairLogCard = () => {
       return "bg-blue-100 text-blue-800 border-blue-300";
     return "bg-gray-100 text-gray-800 border-gray-300";
   };
-  
+  ///
   if (loading) {
     return (
       <div className="flexbox ">
@@ -79,14 +82,10 @@ const RepairLogCard = () => {
     );
   }
 
-  
-  const activeRepairLogs = repairLogs.filter(
-    (log) => log.status !== "completed"
-  );
-
+  ////
   return (
-    <div className="relative overscroll-none">
-      <div className="flex overscroll-none sm:grid-cols-[260px_1fr] md:grid-rows-[80px_1fr] grid-cols-[80px_1fr] grid-rows-[60px_1fr] md:transition-normal duration-200">
+    <div className="relative   overscroll-none">
+      <div className="flex overscroll-none sm:grid-cols-[260px_1fr] md:grid-rows-[80px_1fr] grid-cols-[80px_1fr] grid-rows-[60px_1fr]  md:transition-normal duration-200">
         <Navbarr />
         <main className="grid overflow-y-auto bg-bgblue min-h-full w-full p-5 ">
           <div className="flexbox lg:grid-cols-3 overscroll-contain items-center justify-center min-h-full gap-4 border-gray-500 text-gray-300 ">
@@ -97,74 +96,72 @@ const RepairLogCard = () => {
                 </h1>
               </div>
 
-              {activeRepairLogs.length === 0 ? (
+              {repairLogs.length === 0 ? (
                 <div className="text-center p-10 border-2 border-dashed border-gray-300 rounded-xl text-gray-500">
-                  No Active Service Requests found.
+                  No Service Requests found in the database.
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {activeRepairLogs.map((repairLog) => (
+                  {repairLogs.map((repairLogs) => (
                     <div
-                      key={repairLog._id}
-                      className="bg-white/10 bg-blend-overlay rounded-xl shadow-sm border border-gray-200 p-5 transition-discrete hover:bg-white/30 hover:bg-blend-overlay hover:shadow-lg"
+                      key={repairLogs._id}
+                      className="bg-white/10 bg-blend-overlay  rounded-xl shadow-sm border border-gray-200 p-5 transition-discrete hover:bg-white/30 hover:bg-blend-overlay hover:shadow-lg"
                     >
                       <div className="flex justify-between items-start mb-4">
                         <span className="bg-accentblue text-white font-bold text-xs px-2.5 py-1 rounded uppercase tracking-wider">
-                          {repairLog.office}
+                          {repairLogs.office}
                         </span>
 
                         <span
-                          className={`text-xs font-medium px-2.5 py-0.5 rounded-full border ${getStatusStyles(
-                            repairLog.status
-                          )}`}
+                          className={`text-xs font-medium px-2.5 py-0.5 rounded-full border ${getStatusStyles(repairLogs.status)}`}
                         >
-                          {repairLog.status}
+                          {repairLogs.status}
                         </span>
                       </div>
                       <h1 className="text-sm text-white/70">
-                        Request ID: {repairLog.reqID}
+                        Request ID: {repairLogs.reqID}
                       </h1>
                       <h3 className="font-bold text-lg text-white/70">
-                        {repairLog.device}
+                        {repairLogs.device}
                       </h3>
                       <h3 className="font-bold text-lg text-white/70">
-                        Issue: {repairLog.issue}
+                        Issue: {repairLogs.issue}
                       </h3>
                       <h3 className="font-bold text-lg text-white/70">
-                        Inclusions: {repairLog.inclusions}
+                        Inclusions: {repairLogs.inclusions}
                       </h3>
 
                       <div className="space-y-1 text-sm text-white/70 border-t pt-3 border-gray-100 mt-2">
                         <p>
                           <strong>Technician:</strong>{" "}
-                          {repairLog.assignedTechnician}
+                          {repairLogs.assignedTechnician}
                         </p>
                         <p>
                           <strong>RECEIVED:</strong>{" "}
                           {new Date(
-                            repairLog.dateReceived
+                            repairLogs.dateReceived,
                           ).toLocaleDateString()}{" "}
                           -{" "}
                           {new Date(
-                            repairLog.dateReceived
+                            repairLogs.dateReceived,
                           ).toLocaleTimeString()}{" "}
                         </p>
 
                         <p>
                           <strong>LAST UPDATED:</strong>{" "}
-                          {new Date(repairLog.updatedAt).toLocaleDateString(
-                            "en-GB"
+                          {new Date(repairLogs.updatedAt).toLocaleDateString(
+                            "en-GB",
                           )}{" "}
                           -{" "}
                           {new Date(
-                            repairLog.dateReceived
+                            repairLogs.dateReceived,
                           ).toLocaleTimeString()}
                         </p>
 
-                        <div className="flex mt-4 justify-end">
+                        <div className="flex mt-4 flex justify-end">
                           <button
                             onClick={() =>
-                              navigate(`/EditRequestForm/${repairLog._id}`)
+                              navigate(`/EditRequestForm/${repairLogs._id}`)
                             }
                             className="bg-bgblue-500 hover:bg-white hover:text-bgblue text-white px-3 py-1.5 rounded text-sm transition-colors"
                           >

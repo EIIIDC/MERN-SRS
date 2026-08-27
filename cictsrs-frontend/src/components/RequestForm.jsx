@@ -37,7 +37,7 @@ const RequestForm = () => {
   const [formData, setFormData] = useState({
     reqID: '',
     name: '',
-    email: '',
+    phoneNum: '',
     office: '',
     device: '',
     serialNumber: '',
@@ -91,7 +91,7 @@ const RequestForm = () => {
       setFormData({
         reqID: nextReqData.fullID,
         name: '',
-        email: '',
+        phoneNum: '',
         office: '',
         device: '',
         serialNumber: '',
@@ -156,11 +156,13 @@ const RequestForm = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1">Phone No.</label>
             <input
-              type="email"
-              name="email"
-              value={formData.email}
+              type="tel"
+              
+              name="phoneNum"
+              
+              value={formData.phoneNum}
               onChange={handleChange}
               required
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -209,11 +211,11 @@ const RequestForm = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Serial Number</label>
+            <label className="block text-sm font-medium mb-1">Serial No.</label>
             <input
               type="text"
               name="serialNumber"
-              value={formData.serialNumber}
+              value={formData.serialNumber?.toUpperCase()}
               onChange={handleChange}
               required
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"

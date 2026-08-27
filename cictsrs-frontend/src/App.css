@@ -1,4 +1,6 @@
+
 @import "tailwindcss";
+
 
 @theme colors {
 
@@ -11,6 +13,7 @@
 
 @layer base{
   :root{
+  
    /* @apply bg-[url('../src/assets/srsBG.svg')] bg-cover bg-fixed bg-center; */
    @apply bg-bgblue;
    @apply font-mono;
@@ -24,6 +27,7 @@
 
 html,
 body {
+  
   
   
   margin: 0 ;

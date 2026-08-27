@@ -234,7 +234,8 @@ const EditRequestForm = () => {
             <select
               name="assignedTechnician"
               value={formData.assignedTechnician}
-              onChange={handleChange} 
+              onChange={ [handleChange,changeTechnicianStatus] }
+              
               
               required
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
@@ -255,7 +256,7 @@ const EditRequestForm = () => {
               {availableTechnicians.map((tech) => (
                 <option key={tech._id || tech.id} value={tech.Fname}>
                   {tech.Fname}
-                  onChange={changeTechnicianStatus}
+                  
                 </option>
                 
               ))}

@@ -15,4 +15,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+router.post('/', async (req, res) => {
+    const { username, password, role } = req.body;
+
+    try {
+        const newUser = new User({ username, password, role });
+        await newUser.save();
+        res.status(201).json({ success: true, data: newUser });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+});
+
 export default router;

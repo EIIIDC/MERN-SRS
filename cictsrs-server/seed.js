@@ -94,16 +94,54 @@ const register = async() => {
             Emtype: "Permanent"
               
             });
+
+               const newtechnician3 = new Technicians({ 
+            Fname: "Jayson",
+            Lname: "Basiag",
+            isOccupied: false,
+            Emtype: "Permanent"
+              
+            });
+
+
+               const newtechnician4 = new Technicians({ 
+            Fname: "Jaspher",
+            Lname: "Aglibot",
+            isOccupied: false,
+            Emtype: "Job Order"
+              
+            });
+
+               const newtechnician5 = new Technicians({ 
+            Fname: "Mico",
+            Lname: "Salio-An",
+            isOccupied: false,
+            Emtype: "Job Order"
+              
+            });
+
+               const newtechnician6 = new Technicians({ 
+            Fname: "Ernesto III",
+            Lname: "Dela Cruz",
+            isOccupied: false,
+            Emtype: "Job Order"
+              
+            });
           
            
 
-            await newUser.save();
+          //  await newUser.save();
         //     await newReqList.save();
        //     await newCctv.save();
        //       await newRepairLog.save();
         //    await newInventory.save();
-        //      await newtechnician.save();
-         //     await newtechnician1.save();
+            //  await newtechnician.save(); 
+          //   await newtechnician1.save();
+          //   await newtechnician2.save();
+          //   await newtechnician3.save();
+          //   await newtechnician4.save();
+          //   await newtechnician5.save();
+           //  await newtechnician6.save();
             console.log("seeded successfully!");
     } catch(error) {
         console.log(error);
