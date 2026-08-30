@@ -4,6 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { TextEffect } from '../../components/motion-primitives/text-effect';
+
 
 
 const API_BASE_URL = `https://cict-srs-server.onrender.com`;
@@ -121,6 +123,11 @@ const Login = () => {
         >
           Register
         </button>
+
+
+        <TextEffect per='char' preset='fade'>
+      ANIMATE
+    </TextEffect>
       </div>
     </div>
   );

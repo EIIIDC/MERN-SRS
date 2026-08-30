@@ -12,6 +12,7 @@ import CctvCard from './components/CctvCard.jsx';
 import InventoryCard from './components/InventoryCard.jsx';
 import RequestForm from './components/RequestForm.jsx';
 import EditRequestForm from './components/EditRequestForm.jsx'; 
+import Requests from './components/Requests.jsx';
 
 
 
@@ -31,7 +32,8 @@ function App() {
         </Route>
           <Route path="/client/dashboard" element={ <h1>    UNAVAILABLE    </h1>}/>
           <Route path="/superadmin/manage" element={<ProtectedRoutes requireRole={["superadmin"]}><Manage/></ProtectedRoutes>}></Route> 
-          <Route path="/superadmin/reports" element={<Reports/>}></Route>  
+          <Route path="/superadmin/reports" element={<Reports/>}></Route>
+          <Route path="/superadmin/requests" element={<Requests/>} />  
           <Route path="/EditRequestForm/:id" element={<EditRequestForm />} />
          
 
