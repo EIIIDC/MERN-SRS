@@ -37,7 +37,7 @@ const RequestForm = () => {
   const [formData, setFormData] = useState({
     reqID: '',
     name: '',
-    phoneNum: '',
+    email: '',
     office: '',
     device: '',
     serialNumber: '',
@@ -91,7 +91,7 @@ const RequestForm = () => {
       setFormData({
         reqID: nextReqData.fullID,
         name: '',
-        phoneNum: '',
+        email: '',
         office: '',
         device: '',
         serialNumber: '',
@@ -158,11 +158,11 @@ const RequestForm = () => {
           <div>
             <label className="block text-sm font-medium mb-1">Phone No.</label>
             <input
-              type="tel"
+              type="email"
               
-              name="phoneNum"
+              name="email"
               
-              value={formData.phoneNum}
+              value={formData.email}
               onChange={handleChange}
               required
               className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"

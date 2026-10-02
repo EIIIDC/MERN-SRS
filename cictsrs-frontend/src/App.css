@@ -20,7 +20,7 @@
 
    /* @apply bg-[url('../src/assets/srsBG.svg')] bg-cover bg-fixed bg-center; */
    @apply bg-bgblue;
-   @apply font-mono;
+  
 
   }
   * {
@@ -30,7 +30,7 @@
     @apply bg-background text-foreground;
  }
   html {
-    @apply font-sans;
+   
  }
 
 }

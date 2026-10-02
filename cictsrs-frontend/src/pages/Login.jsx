@@ -6,6 +6,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { TextEffect } from "../../components/motion-primitives/text-effect";
 import { BorderTrail } from "../../components/motion-primitives/border-trail";
+import ictLOGO from "../assets/ictLOGO.svg";
 
 const API_BASE_URL = `https://cict-srs-server.onrender.com`;
 
@@ -61,19 +62,43 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col  grid-cols-1 md:grid-cols-3 gap-8 items-center justify-center h-screen bg-[url(../src/assets/ictLOGO.svg)] bg-cover bg-center bg-no-repeat bg-bgblue/30 bg-blend-overlay md:bg-contain">
+    <div className="flex flex-row  grid-rows-1 grid-rowss-3 gap-8 items-center justify-center h-screen  bg-cover bg-center bg-no-repeat bg-bgblue/30 bg-blend-overlay md:bg-contain">
       
-        <Toaster position="top-center" reverseOrder={false} />
+        
+      
+      
+      
+      
+      
+      
+      <Toaster position="top-center" reverseOrder={false} />
+    <div className="block gap-4 text-center text-white ">
+        <TextEffect per="char" preset="fade" className="text-3xl font-bold" delay={0}>
+          MISSION
+        </TextEffect>
+        <TextEffect per="char" preset="blur" delay={0.5}>
+          To implement and manage the City Government’s
+        </TextEffect>
+        <TextEffect per="char" preset="blur" delay={1.75}>
+          technological resources and utilize 
+          Information Communication
+          Technology
+        </TextEffect>
+        <TextEffect per="char" preset="blur" delay={3.5}>
+          in delivering efficient and adequate public service.
+        </TextEffect>
+      </div>
+
+      <div className="flexbox shadow-xl ">
+        <img src={ictLOGO} className=" w-10 md:w-36 h-10 md:h-36 object-contain mx-auto mb-6 mt-6"  />
 
 
-<div className="flexbox" >
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-6 bg-complementaryblue/90 bg-blend-overlay p-4 rounded-lg shadow-md w-full max-w-sm"
+          className="flex flex-col gap-6 bg-complementaryblue/90 bg-blend-overlay p-4 rounded-lg shadow-xl w-full max-w-sm backdrop-grayscale"
         >
           <div className="form-group item-center justify-center">
-           
             <input
               type="text"
               id="email"
@@ -86,7 +111,6 @@ const Login = () => {
           </div>
 
           <div className="form-group">
-         
             <input
               type="password"
               id="password"
@@ -107,46 +131,47 @@ const Login = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
 
+          <div className="relative h-[80px] w-[260px] overflow-hidden rounded-md border border-zinc-950/10 text-zinc-700 outline-hidden dark:border-zinc-50/20 dark:bg-zinc-950 dark:text-zinc-300">
+            <BorderTrail
+              className="bg-linear-to-l from-green-200 via-green-500 to-green-200 dark:from-green-400 dark:via-green-500 dark:to-green-700"
+              size={60}
+            />
 
-
-  <div className='relative h-[80px] w-[260px] overflow-hidden rounded-md border border-zinc-950/10 text-zinc-700 outline-hidden dark:border-zinc-50/20 dark:bg-zinc-950 dark:text-zinc-300'>
-      
-      <BorderTrail
-        className='bg-linear-to-l from-green-200 via-green-500 to-green-200 dark:from-green-400 dark:via-green-500 dark:to-green-700'
-        size={60}
-      />
-    
-     <div className="flex flex-col h-[160px] w-[260px] gap-1 bg-bgblue/60 bg-blend-overlay p-2 rounded-lg shadow-md w-full max-w-sm">
-  
-          <h1 className="block text-md font-medium text-center text-white">
-            Don't have an account?
-          </h1>
-          <button
-            type="button"
-            onClick={() => navigate("/register")}
-            className="p-1 bg-green-700 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 mt-0"
-          >
-            Register
-          </button>
-        </div>
-    
-    </div>
-
-
-       
-
+            <div className="flex flex-col h-[160px] w-[260px] gap-1 bg-bgblue/60 bg-blend-overlay p-2 rounded-lg shadow-md w-full max-w-sm">
+              <h1 className="block text-md font-medium text-center text-white">
+                Don't have an account?
+              </h1>
+              <button
+                type="button"
+                onClick={() => navigate("/register")}
+                className="p-1 bg-green-700 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 mt-0"
+              >
+                Register
+              </button>
+            </div>
+          </div>
         </form>
-
-
-
-
-</div>
-        
-       
         
       </div>
-     
-
+<div className="block  gap-4 text-center text-white">
+        <TextEffect per="char" preset="fade" className="text-3xl font-bold" delay={0}>
+          VISION
+        </TextEffect>
+        <TextEffect per="char" preset="blur" delay={0.5}>
+          The Information and Communication Technology Office 
+        </TextEffect>
+        <TextEffect per="char" preset="blur" delay={1.75}>
+         as a model of excellence in leveraging information
+        </TextEffect>
+        <TextEffect per="char" preset="blur" delay={1.75}>
+          communication technology towards a productive 
+        </TextEffect>
+         <TextEffect per="char" preset="blur" delay={3.5}>
+         and efficient City Government by 2030.
+        </TextEffect>
+      </div>
+    
+    </div>
     
   );
 };
